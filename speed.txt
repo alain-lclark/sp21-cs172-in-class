@@ -1,0 +1,4 @@
+Don't you wish you could read faster? Maybe that's why you're taking computer science.
+Those history majors have to read an entire book every week! Maybe a program like this,
+which presents words one at a time in rapid succession, could help. We're going to write
+this program today.
