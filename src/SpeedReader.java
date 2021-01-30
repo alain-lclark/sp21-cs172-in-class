@@ -4,7 +4,16 @@ public class SpeedReader {
         In file = new In("speed.txt");
         while (!file.isEmpty()) {
             String s = file.readLine();
-            StdOut.println(s);
+            for (int i = 0; i < s.length(); i++) {
+                String w = "";
+                while (i < s.length() && s.charAt(i) != ' ') {
+                    w = w + s.charAt(i);
+                    ++i;
+                }
+                StdDraw.clear();
+                StdDraw.text(0.5, 0.5, w);
+                StdDraw.pause(500);
+            }
         }
     }
 
