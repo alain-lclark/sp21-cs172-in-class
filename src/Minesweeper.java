@@ -14,7 +14,7 @@ public class Minesweeper {
         drawMinefield(minefield);
 
         while (true) {
-            handleMouseClick(minefield);
+            handleMouseClick(minefield, uncovered);
             drawMinefield(minefield);
             if (hasWon()) {
                 StdOut.println("You won!");
@@ -23,7 +23,7 @@ public class Minesweeper {
         }
     }
 
-    public static void handleMouseClick(boolean[][] minefield) {
+    public static void handleMouseClick(boolean[][] minefield, boolean[][] uncovered) {
         while (!StdDraw.isMousePressed()) {
             // do nothing
         }
@@ -35,7 +35,7 @@ public class Minesweeper {
             // do nothing
         }
 
-        uncover();
+        uncover(minefield, uncovered, x, y);
 
         if (minefield[x][y]) {
             StdOut.println("BOOM");
@@ -62,7 +62,43 @@ public class Minesweeper {
         return false;
     }
 
-    public static void uncover() {
+    public static void uncover(boolean[][] minefield, boolean[][] uncovered, int x, int y) {
+        uncovered[x][y] = true;
+        if (countNeighboringMines(minefield, x, y) == 0) {
+            percolate(minefield, uncovered);
+        }
+    }
+
+    public static void percolate(boolean[][] minefield, boolean[][] uncovered) {
+        while (true) {
+            boolean equilibriumReached = true;
+            for (int x = 0; x < minefield.length; ++x) {
+                for (int y = 0; y < minefield.length; ++y) {
+                    if (hasAMineFreeAndUncoveredNeighbor(minefield, uncovered, x, y)) {
+                        if (!uncovered[x][y]) {
+                            equilibriumReached = false;
+                            uncovered[x][y] = true;
+                        }
+                    }
+                }
+            }
+            if (equilibriumReached) return;
+        }
+    }
+
+    public static boolean hasAMineFreeAndUncoveredNeighbor(boolean[][] minefield, boolean[][] uncovered, int x, int y) {
+        for (int x1 = x - 1; x1 <= x + 1; ++x1) {
+            for (int y1 = y - 1; y1 <= y + 1; ++y1) {
+                if (x1 >= 0 && x1 < uncovered.length &&
+                        y1 >= 0 && y1 < uncovered.length &&
+                        (x1 != x || y1 != y) &&
+                        uncovered[x1][y1] &&
+                        countNeighboringMines(minefield, x1, y1) == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public static void initMinefield(boolean[][] minefield, int numMines) {
