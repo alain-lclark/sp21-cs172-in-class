@@ -11,12 +11,12 @@ public class Minesweeper {
 
         initMinefield(minefield, NUM_MINES);
 
-        drawMinefield(minefield);
+        drawMinefield(minefield, uncovered);
 
         while (true) {
             handleMouseClick(minefield, uncovered);
-            drawMinefield(minefield);
-            if (hasWon()) {
+            drawMinefield(minefield, uncovered);
+            if (hasWon(minefield, uncovered)) {
                 StdOut.println("You won!");
                 break;
             }
@@ -44,8 +44,8 @@ public class Minesweeper {
 
     public static int countNeighboringMines(boolean[][] minefield, int x, int y) {
         int count = 0;
-        for (int x1 = x - 1; x1 < x + 1; ++x1) {
-            for (int y1 = y - 1; y1 < y + 1; ++y1) {
+        for (int x1 = x - 1; x1 <= x + 1; ++x1) {
+            for (int y1 = y - 1; y1 <= y + 1; ++y1) {
                 if (x1 >= 0 && x1 < minefield.length &&
                     y1 >= 0 && y1 < minefield.length &&
                     (x1 != x || y1 != y)) {
@@ -58,8 +58,13 @@ public class Minesweeper {
         return count;
     }
 
-    public static boolean hasWon() {
-        return false;
+    public static boolean hasWon(boolean[][] minefield, boolean[][] uncovered) {
+        for (int x = 0; x < minefield.length; ++x) {
+            for (int y = 0; y < minefield.length; ++y) {
+                if (!minefield[x][y] && !uncovered[x][y]) return false;
+            }
+        }
+        return true;
     }
 
     public static void uncover(boolean[][] minefield, boolean[][] uncovered, int x, int y) {
@@ -114,11 +119,26 @@ public class Minesweeper {
         }
     }
 
-    public static void drawMinefield(boolean[][] minefield) {
+    public static void drawMinefield(boolean[][] minefield, boolean[][] uncovered
+    ) {
         StdDraw.clear();
         StdDraw.setScale(-0.5, minefield.length - 0.5);
         for (int x = 0; x < minefield.length; ++x) {
             for (int y = 0; y < minefield.length; ++y) {
+                if (!uncovered[x][y]) {
+                    StdDraw.setPenColor(StdDraw.BLUE);
+                    StdDraw.filledSquare(x, y, 0.5);
+                    StdDraw.setPenColor(StdDraw.BLACK);
+                }
+                else if (minefield[x][y]) {
+                    StdDraw.setPenColor(StdDraw.RED);
+                    StdDraw.filledCircle(x,y, 0.3);
+                    StdDraw.setPenColor(StdDraw.BLACK);
+                }
+                else {
+                    int count = countNeighboringMines(minefield, x, y);
+                    if (count != 0) StdDraw.text(x, y, "" + count);
+                }
                 StdDraw.square(x, y, 0.5);
             }
         }

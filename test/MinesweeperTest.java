@@ -9,6 +9,38 @@ class MinesweeperTest {
 
     @Test
     void hasWon() {
+        boolean[][] minefield = {
+                {  true, false, false, false},
+                { false, false, false, false},
+                { false, false, false, false},
+                { false, false, false, false}
+        };
+        boolean[][] uncovered = {
+                {false, true, true, true},
+                { true, true, true, true},
+                { true, true, true, true},
+                { true, true, true, true}
+        };
+
+        assertTrue(Minesweeper.hasWon(minefield, uncovered));
+    }
+
+    @Test
+    void hasNotWonYet() {
+        boolean[][] minefield = {
+                {  true, false, false, false},
+                { false, false, false, false},
+                { false, false, false, false},
+                { false, false, false, false}
+        };
+        boolean[][] uncovered = {
+                {false, true, true, true},
+                { true, true, true, true},
+                { true, true, true, true},
+                {false, true, true, true}
+        };
+
+        assertFalse(Minesweeper.hasWon(minefield, uncovered));
     }
 
     @Test
@@ -34,7 +66,7 @@ class MinesweeperTest {
                 {false, false, false, false},
                 {false, false, false, false}
         };
-        assertEquals(expected, uncovered);
+        assertArrayEquals(expected, uncovered);
     }
 
     @Test
@@ -61,10 +93,19 @@ class MinesweeperTest {
                 { true, true, true, true}
         };
 
-        assertEquals(expected, uncovered);
+        assertArrayEquals(expected, uncovered);
     }
 
-        @Test
+    @Test
     void initMinefield() {
+        boolean[][] minefield = new boolean[4][4];
+        Minesweeper.initMinefield(minefield, 10);
+        int count = 0;
+        for (int x = 0; x < minefield.length; ++x) {
+            for (int y = 0; y < minefield.length; ++y) {
+                if (minefield[x][y]) ++count;
+            }
+        }
+        assertEquals(10, count);
     }
 }
