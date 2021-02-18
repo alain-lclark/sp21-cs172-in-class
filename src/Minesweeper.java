@@ -11,6 +11,9 @@ public class Minesweeper {
 
         initMinefield(minefield, NUM_MINES);
 
+        StdDraw.setScale(-0.5, minefield.length - 0.5);
+        StdDraw.enableDoubleBuffering();
+
         drawMinefield(minefield, uncovered);
 
         while (true) {
@@ -122,7 +125,6 @@ public class Minesweeper {
     public static void drawMinefield(boolean[][] minefield, boolean[][] uncovered
     ) {
         StdDraw.clear();
-        StdDraw.setScale(-0.5, minefield.length - 0.5);
         for (int x = 0; x < minefield.length; ++x) {
             for (int y = 0; y < minefield.length; ++y) {
                 if (!uncovered[x][y]) {
@@ -142,6 +144,7 @@ public class Minesweeper {
                 StdDraw.square(x, y, 0.5);
             }
         }
+        StdDraw.show();
     }
 
 }
