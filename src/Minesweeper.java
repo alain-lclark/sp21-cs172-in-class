@@ -71,26 +71,18 @@ public class Minesweeper {
     }
 
     public static void uncover(boolean[][] minefield, boolean[][] uncovered, int x, int y) {
-        uncovered[x][y] = true;
-        if (countNeighboringMines(minefield, x, y) == 0) {
-            percolate(minefield, uncovered);
-        }
-    }
-
-    public static void percolate(boolean[][] minefield, boolean[][] uncovered) {
-        while (true) {
-            boolean equilibriumReached = true;
-            for (int x = 0; x < minefield.length; ++x) {
-                for (int y = 0; y < minefield.length; ++y) {
-                    if (hasAMineFreeAndUncoveredNeighbor(minefield, uncovered, x, y)) {
-                        if (!uncovered[x][y]) {
-                            equilibriumReached = false;
-                            uncovered[x][y] = true;
+        if (!uncovered[x][y]) {
+            uncovered[x][y] = true;
+            if (countNeighboringMines(minefield, x, y) == 0) {
+                for (int x1 = x - 1; x1 <= x + 1; ++x1) {
+                    for (int y1 = y - 1; y1 <= y + 1; ++y1) {
+                        if (x1 >= 0 && x1 < minefield.length
+                            && y1 >= 0 && y1 < minefield.length) {
+                            uncover(minefield, uncovered, x1, y1);
                         }
                     }
                 }
             }
-            if (equilibriumReached) return;
         }
     }
 
