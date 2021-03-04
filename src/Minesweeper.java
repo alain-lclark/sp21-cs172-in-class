@@ -86,21 +86,6 @@ public class Minesweeper {
         }
     }
 
-    public static boolean hasAMineFreeAndUncoveredNeighbor(boolean[][] minefield, boolean[][] uncovered, int x, int y) {
-        for (int x1 = x - 1; x1 <= x + 1; ++x1) {
-            for (int y1 = y - 1; y1 <= y + 1; ++y1) {
-                if (x1 >= 0 && x1 < uncovered.length &&
-                        y1 >= 0 && y1 < uncovered.length &&
-                        (x1 != x || y1 != y) &&
-                        uncovered[x1][y1] &&
-                        countNeighboringMines(minefield, x1, y1) == 0) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public static void initMinefield(boolean[][] minefield, int numMines) {
         for (int i = 0; i < numMines; ++i) {
             int x = StdRandom.uniform(minefield.length);
