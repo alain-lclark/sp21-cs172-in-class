@@ -22,7 +22,7 @@ class MinesweeperTest {
                 { true, true, true, true}
         };
 
-        assertTrue(Minesweeper.hasWon(minefield, uncovered));
+//        assertTrue(Minesweeper.hasWon(minefield, uncovered));
     }
 
     @Test
@@ -40,7 +40,7 @@ class MinesweeperTest {
                 {false, true, true, true}
         };
 
-        assertFalse(Minesweeper.hasWon(minefield, uncovered));
+//        assertFalse(Minesweeper.hasWon(minefield, uncovered));
     }
 
     @Test
@@ -58,7 +58,7 @@ class MinesweeperTest {
                 {false, false, false, false}
         };
 
-        Minesweeper.uncover(minefield, uncovered, 1, 0);
+//        Minesweeper.uncover(minefield, uncovered, 1, 0);
 
         boolean[][] expected = {
                 {false, false, false, false},
@@ -84,7 +84,7 @@ class MinesweeperTest {
                 {false, false, false, false}
         };
 
-        Minesweeper.uncover(minefield, uncovered, 3, 0);
+//        Minesweeper.uncover(minefield, uncovered, 3, 0);
 
         boolean[][] expected = {
                 {false, true, true, true},
@@ -99,7 +99,7 @@ class MinesweeperTest {
     @Test
     void initMinefield() {
         boolean[][] minefield = new boolean[4][4];
-        Minesweeper.initMinefield(minefield, 10);
+//        Minesweeper.initMinefield(minefield, 10);
         int count = 0;
         for (int x = 0; x < minefield.length; ++x) {
             for (int y = 0; y < minefield.length; ++y) {
