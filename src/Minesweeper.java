@@ -7,6 +7,11 @@ public class Minesweeper {
         int NUM_MINES = 10;
 
         FieldLocation[][] minefield = new FieldLocation[SIZE][SIZE];
+        for (int x = 0; x < minefield.length; ++x) {
+            for (int y = 0; y < minefield.length; ++y) {
+                minefield[x][y] = new FieldLocation();
+            }
+        }
 
         initMinefield(minefield, NUM_MINES);
 
