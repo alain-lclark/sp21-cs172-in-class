@@ -77,4 +77,16 @@ public class Complex {
         return Math.sqrt(re*re + im*im);
     }
 
+    /**
+     * Compares this Complex number to the given object
+     * @param o an object, possibly a Complex number
+     * @return true if o is a Complex number and has the same content as this Complex number
+     */
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Complex that = (Complex)o;
+        return this.re == that.re && this.im == that.im;
+    }
+
 }
