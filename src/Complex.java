@@ -3,18 +3,18 @@
  */
 public class Complex {
 
-    private double re;
-    private double im;
+    final private double re;
+    final private double im;
 
     /**
      * Initializes the newly created Complex number with the given real
      * and imaginary arguments.
-     * @param real the real part
-     * @param imag the imaginary part
+     * @param re the real part
+     * @param im the imaginary part
      */
-    public Complex(double real, double imag) {
-        re = real;
-        im = imag;
+    public Complex(double re, double im) {
+        this.re = re;
+        this.im = im;
     }
 
     /**
