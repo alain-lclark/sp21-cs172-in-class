@@ -29,4 +29,14 @@ public class ThreeSum {
         return timer.elapsedTime();
     }
 
+    public static void main(String[] unused) {
+        double previous = timeTrial(128);
+        for (int n = 256; true; n *= 2) {
+            double current = timeTrial(n);
+            double ratio = current/previous;
+            StdOut.printf("%7d %4.2f\n", n, ratio);
+            previous = current;
+        }
+    }
+
 }
