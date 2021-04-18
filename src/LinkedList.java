@@ -43,7 +43,21 @@ public class LinkedList implements List {
     }
 
     public void removeAt(int index) {
-
+        if (index == 0) {
+            head = head.next;
+            return;
+        }
+        assert index > 0;
+        int i = 0;
+        Node n = head;
+        Node p = null;
+        while (i < index) {
+            p = n;
+            n = n.next;
+            ++i;
+        }
+        assert p != null;
+        p.next = n.next;
     }
 
     public int length() {
