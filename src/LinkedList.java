@@ -1,10 +1,12 @@
-public class LinkedList implements List {
+import java.util.Iterator;
+
+public class LinkedList<E> implements List<E> {
 
     private class Node {
-        String item;
+        E item;
         Node next;
 
-        public Node(String item) {
+        public Node(E item) {
             this.item = item;
             this.next = null;
         }
@@ -16,7 +18,7 @@ public class LinkedList implements List {
         head = null;
     }
 
-    public void add(String item) {
+    public void add(E item) {
         Node n = new Node(item);
         if (head == null) {
             head = n;
@@ -32,7 +34,7 @@ public class LinkedList implements List {
         }
     }
 
-    public String get(int index) {
+    public E get(int index) {
         int i = 0;
         Node n = head;
         while (i < index) {
@@ -70,4 +72,21 @@ public class LinkedList implements List {
         return length;
     }
 
+    public Iterator<E> iterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator<E> {
+        Node current = head;
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public E next() {
+            E item = current.item;
+            current = current.next;
+            return item;
+        }
+    }
 }

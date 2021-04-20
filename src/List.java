@@ -1,10 +1,10 @@
-public interface List {
+public interface List<E> extends Iterable<E> {
 
     /**
      * Adds item to the end of the list.
      * @param item  item to be added
      */
-    public abstract void add(String item);
+    public abstract void add(E item);
 
     /**
      * Returns the element at position index.
@@ -14,7 +14,7 @@ public interface List {
      * @param index  position in the list
      * @return the element at the given index
      */
-    public abstract String get(int index);
+    public abstract E get(int index);
 
     /**
      * Removes the element at position index.
